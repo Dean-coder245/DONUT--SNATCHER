@@ -1,0 +1,22 @@
+{
+    "P8(e?*=JEU)diO20Zy9Q": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAA8PAAAAAAAA8AAAAPAPAAD//wDwDwAA8L/9D///D/D//xH/////////8f/////////b/////wD///H/////////Ef//////8L/9D///D/AA//8A8A8AAAAAAAAA8A8AAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "ninjaImage"
+    },
+    "UuIp$[_Y^YD]5DP": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8AAAAAAADwDwAAAAAAAL8PAAAAAA8Azw8AAAAA//+s/A8AAADwywrK+wAAAAD/rPz/DwAAAADPDwAPAAAAAL8PAAAAAAAA/wAAAAAAAPAPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "starImage"
+    },
+    "^[24S~cZqXfPcPYYw5H{": {
+        "data": "hwQQABAAAAAAAAAAAMDMzAC7u7u7vBHLsNHd3d3L3csbsczMzMsdy9vBZmbGyx3L28HWZsbL3cvbwWZmxssdy9vBZmbGyx3L28FmZsbL3cvbwWZmxssdy9vBZmbGyx3LG7HMzMzL3cuw0d3d3csdywC7u7u7vBHLAAAAAADAzMwAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "computerImage"
+    },
+    "*": {
+        "mimeType": "image/x-mkcd-f4",
+        "dataEncoding": "base64",
+        "namespace": "myImages"
+    }
+}

@@ -1,0 +1,37 @@
+nohup: ignoring input
+127.0.0.1 - - [19/Sep/2025 14:33:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 14:33:17] "GET /assets/js/loader.js?v={{%20site.github.build_revision%20}} HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 14:33:17] "GET /assets/js/custom.js?v={{%20site.github.build_revision%20}} HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 14:33:17] "GET /assets/js/binary.js?v={{%20site.github.build_revision%20}} HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 14:33:17] code 404, message File not found
+127.0.0.1 - - [19/Sep/2025 14:33:17] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [19/Sep/2025 14:33:33] code 404, message File not found
+127.0.0.1 - - [19/Sep/2025 14:33:33] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [19/Sep/2025 14:58:29] code 404, message File not found
+127.0.0.1 - - [19/Sep/2025 14:58:29] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [19/Sep/2025 14:58:29] code 404, message File not found
+127.0.0.1 - - [19/Sep/2025 14:58:29] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [19/Sep/2025 14:58:29] code 404, message File not found
+127.0.0.1 - - [19/Sep/2025 14:58:29] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [19/Sep/2025 14:58:29] code 404, message File not found
+127.0.0.1 - - [19/Sep/2025 14:58:29] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [19/Sep/2025 15:19:04] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:19:19] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:24:03] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:24:09] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:24:31] code 404, message File not found
+127.0.0.1 - - [19/Sep/2025 15:24:31] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [19/Sep/2025 15:27:26] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:27:27] "GET /assets/js/loader.js?v={{%20site.github.build_revision%20}} HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:27:27] "GET /assets/js/custom.js?v={{%20site.github.build_revision%20}} HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:27:27] "GET /assets/js/binary.js?v={{%20site.github.build_revision%20}} HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:27:27] code 404, message File not found
+127.0.0.1 - - [19/Sep/2025 15:27:27] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [19/Sep/2025 15:27:38] code 404, message File not found
+127.0.0.1 - - [19/Sep/2025 15:27:38] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [19/Sep/2025 15:46:10] "GET /about.html HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:50:12] "GET /about.html HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:52:15] "GET /about.html HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:52:18] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [19/Sep/2025 15:52:28] code 404, message File not found
+127.0.0.1 - - [19/Sep/2025 15:52:28] "GET /favicon.ico HTTP/1.1" 404 -

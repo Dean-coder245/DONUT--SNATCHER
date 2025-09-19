@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Donut Snatcher Multiplayer</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px;
+            max-width: 600px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: #FFD700;
+        }
+        
+        .game-title {
+            font-size: 3em;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #FF6B35, #F7931E, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+        
+        .creator-info {
+            font-size: 1.3em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #FFD700;
+        }
+        
+        .youtube-section {
+            background: rgba(255, 0, 0, 0.2);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #FF0000;
+        }
+        
+        .youtube-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #FF0000, #CC0000);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+            margin: 10px;
+        }
+        
+        .youtube-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .play-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+            margin: 10px;
+        }
+        
+        .play-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .features {
+            text-align: left;
+            margin: 20px 0;
+        }
+        
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .features li:before {
+            content: "🍩";
+            position: absolute;
+            left: 0;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .game-title {
+                font-size: 2em;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .creator-info {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="game-title">🍩 DONUT SNATCHER 🍩</div>
+        <h1>About the Creator</h1>
+        
+        <div class="creator-info">
+            <p><strong>Hi! My name is Dean and I am the maker of Donut Snatcher!</strong></p>
+            <p>This is my <strong>first coding project</strong> and I'm really excited to share it with you. 
+            What started as a simple game idea has evolved into this multiplayer arcade experience where 
+            up to 4 players can compete to collect donuts while avoiding obstacles!</p>
+        </div>
+        
+        <div class="features">
+            <h3>🎮 Game Features:</h3>
+            <ul>
+                <li>2-4 Player Multiplayer Action</li>
+                <li>3 Difficulty Levels with Unique Challenges</li>
+                <li>Competitive Donut Collection (50/100/200 to win!)</li>
+                <li>Power-ups and Obstacles</li>
+                <li>Built with MakeCode Arcade</li>
+            </ul>
+        </div>
+        
+        <div class="youtube-section">
+            <h2>🎬 Check Out My YouTube Channel!</h2>
+            <p>I would really appreciate it if you could check out my YouTube channel 
+            <strong>"Random Shenanigans"</strong> where I share coding adventures, game development, 
+            and other fun projects!</p>
+            
+            <a href="https://www.youtube.com/@RandomShenanigans-l9g" target="_blank" class="youtube-button">
+                📺 Visit Random Shenanigans
+            </a>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <a href="https://batteries-college-employed-bacterial.trycloudflare.com" target="_blank" class="play-button">🎮 Play Donut Snatcher</a>
+            <a href="https://github.com/dean-coder245/game-building-session-tutorials" target="_blank" class="play-button" style="background: linear-gradient(45deg, #333, #666);">
+                📂 View Source Code
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>Thank you for playing my game! Your support means everything to a new developer like me. 🚀</p>
+            <p><em>Made with ❤️ by Dean | 2024</em></p>
+        </div>
+    </div>
+</body>
+</html>
