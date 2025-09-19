@@ -54,12 +54,18 @@ function handleDonutCollision(player: Sprite, donut: Sprite, playerNum: number) 
     
     let maxScore = Math.max(player1Score, player2Score, player3Score, player4Score)
     if (maxScore >= donutsToWin) {
-        let winner = "Player 1"
-        if (player2Score == maxScore) winner = "Player 2"
-        else if (player3Score == maxScore) winner = "Player 3"
-        else if (player4Score == maxScore) winner = "Player 4"
-        
-        game.splash(winner + " WINS with " + maxScore + " donuts!")
+        if (numPlayers == 1) {
+            // Single player mode
+            game.splash("YOU WIN with " + player1Score + " donuts!")
+        } else {
+            // Multiplayer mode
+            let winner = "Player 1"
+            if (player2Score == maxScore) winner = "Player 2"
+            else if (player3Score == maxScore) winner = "Player 3"
+            else if (player4Score == maxScore) winner = "Player 4"
+            
+            game.splash(winner + " WINS with " + maxScore + " donuts!")
+        }
         game.over(true)
     }
 }
@@ -119,7 +125,11 @@ function handleProjectileCollision(player: Sprite, projectile: Sprite, playerNum
     if (player4Lives > 0 && numPlayers >= 4) alivePlayers += 1
     
     if (alivePlayers == 0) {
-        game.splash("GAME OVER - All players defeated!")
+        if (numPlayers == 1) {
+            game.splash("GAME OVER - You were defeated!")
+        } else {
+            game.splash("GAME OVER - All players defeated!")
+        }
         game.over(false)
     }
 }
@@ -169,21 +179,74 @@ sprites.onOverlap(SpriteKind.Player4, SpriteKind.Projectile, function (sprite, o
 })
 
 function updateScoreDisplay() {
-    let scoreText = "P1:" + player1Score + " (♥" + player1Lives + ")"
-    if (numPlayers >= 2) scoreText += " P2:" + player2Score + " (♥" + player2Lives + ")"
-    if (numPlayers >= 3) scoreText += " P3:" + player3Score + " (♥" + player3Lives + ")"
-    if (numPlayers >= 4) scoreText += " P4:" + player4Score + " (♥" + player4Lives + ")"
-    
-    // Use info.setScore to show combined info (we'll display in a text sprite instead)
-    info.setScore(player1Score + player2Score + player3Score + player4Score)
+    if (numPlayers == 1) {
+        // Single player - show individual score and lives
+        info.setScore(player1Score)
+        info.setLife(player1Lives)
+    } else {
+        // Multiplayer - show all players
+        let scoreText = "P1:" + player1Score + " (♥" + player1Lives + ")"
+        if (numPlayers >= 2) scoreText += " P2:" + player2Score + " (♥" + player2Lives + ")"
+        if (numPlayers >= 3) scoreText += " P3:" + player3Score + " (♥" + player3Lives + ")"
+        if (numPlayers >= 4) scoreText += " P4:" + player4Score + " (♥" + player4Lives + ")"
+        
+        // Use info.setScore to show combined info
+        info.setScore(player1Score + player2Score + player3Score + player4Score)
+    }
 }
 
 // Game setup
-game.splash("DONUT SNATCHER MULTIPLAYER!")
-numPlayers = game.askForNumber("How many players? (2-4)", 2)
-if (numPlayers < 2 || numPlayers > 4) {
-    game.splash("Invalid! Choose 2, 3, or 4 players")
+game.splash("DONUT SNATCHER!")
+
+// Ask if player wants single or multiplayer
+let gameMode = game.askForNumber("Choose mode: 1=Single Player, 2=Multiplayer", 1)
+if (gameMode != 1 && gameMode != 2) {
+    game.splash("Invalid choice!")
+    gameMode = game.askForNumber("Choose mode: 1=Single Player, 2=Multiplayer", 1)
+}
+
+if (gameMode == 1) {
+    // Single player mode
+    numPlayers = 1
+    game.splash("SINGLE PLAYER MODE!")
+    
+    // Fake loading screen
+    game.splash("Loading single player...")
+    pause(1000)
+    game.splash("Initializing player...")
+    pause(1000)
+    game.splash("Setting up donuts...")
+    pause(1000)
+    game.splash("Loading projectiles...")
+    pause(1000)
+    game.splash("Almost ready...")
+    pause(1000)
+    game.splash("JK I ain't gonna make you wait!")
+    pause(1000)
+    
+} else {
+    // Multiplayer mode
+    game.splash("MULTIPLAYER MODE!")
+    
+    // Fake loading screen
+    game.splash("Loading multiplayer...")
+    pause(1000)
+    game.splash("Connecting players...")
+    pause(1000)
+    game.splash("Syncing controllers...")
+    pause(1000)
+    game.splash("Preparing battle arena...")
+    pause(1000)
+    game.splash("Ready for competition...")
+    pause(1000)
+    game.splash("JK I ain't gonna make you wait!")
+    pause(1000)
+    
     numPlayers = game.askForNumber("How many players? (2-4)", 2)
+    if (numPlayers < 2 || numPlayers > 4) {
+        game.splash("Invalid! Choose 2, 3, or 4 players")
+        numPlayers = game.askForNumber("How many players? (2-4)", 2)
+    }
 }
 
 let userDifficulty = game.askForNumber("Type a difficulty from 1 to 3", 1)
@@ -398,9 +461,16 @@ if (userDifficulty == 2) {
 }
 
 game.splash("CONTROLS:")
-game.splash("Player 1 (Blue): Arrow Keys")
-if (numPlayers >= 2) game.splash("Player 2 (Red): Player 2 Controller")
-if (numPlayers >= 3) game.splash("Player 3 (Green): Player 3 Controller")
-if (numPlayers >= 4) game.splash("Player 4 (Yellow): Player 4 Controller")
-game.splash("First to " + donutsNeeded + " donuts WINS!")
+if (numPlayers == 1) {
+    // Single player instructions
+    game.splash("Use Arrow Keys to move")
+    game.splash("Collect " + donutsNeeded + " donuts to WIN!")
+} else {
+    // Multiplayer instructions
+    game.splash("Player 1 (Blue): Arrow Keys")
+    if (numPlayers >= 2) game.splash("Player 2 (Red): Player 2 Controller")
+    if (numPlayers >= 3) game.splash("Player 3 (Green): Player 3 Controller")
+    if (numPlayers >= 4) game.splash("Player 4 (Yellow): Player 4 Controller")
+    game.splash("First to " + donutsNeeded + " donuts WINS!")
+}
 
