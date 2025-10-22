@@ -39,14 +39,25 @@
     <meta property="og:type" content="website" />
     
     <!-- Icons and Favicons -->
-    <link rel="apple-touch-icon" href="./icon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./icon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./icon.png">
-    <link rel="shortcut icon" href="./icon.png">
+    <link rel="apple-touch-icon" href="./icon-192.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="./icon-192.svg">
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="./icon-192.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="./icon-192.svg">
+    <link rel="shortcut icon" href="./icon-192.svg">
     <link rel="manifest" href="./manifest.json">
     <script type="text/javascript" src="./assets/js/loader.js?v={{ site.github.build_revision }}"></script>
     <script type="text/javascript" src="./assets/js/custom.js?v={{ site.github.build_revision }}"></script>
+    <script type="text/javascript" src="./device-detect.js" async></script>
+    <script>
+        // Register service worker for PWA support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered:', reg.scope))
+                    .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+    </script>
     <style>
         body {
             background: black;
@@ -146,6 +157,36 @@
                 height: 72px;
                 opacity: 0;
             }
+        }
+
+        /* Enhanced graphics for desktop */
+        .enhanced-graphics iframe {
+            filter: contrast(1.1) saturate(1.1) brightness(1.05);
+            image-rendering: crisp-edges;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        /* Optimized graphics for mobile */
+        .optimized-graphics iframe {
+            filter: contrast(1.0) saturate(1.0);
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        /* Performance optimizations */
+        .mobile-device iframe {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            perspective: 1000;
+        }
+
+        .desktop-device iframe {
+            image-rendering: smooth;
         }
     </style>
 </head>

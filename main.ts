@@ -4,7 +4,38 @@ namespace SpriteKind {
     export const Player2 = SpriteKind.create()
     export const Player3 = SpriteKind.create()
     export const Player4 = SpriteKind.create()
+    export const PowerUp = SpriteKind.create()
+    export const Shield = SpriteKind.create()
+    export const SpeedBoost = SpriteKind.create()
+    export const DoublePoints = SpriteKind.create()
+    export const EnemyBot = SpriteKind.create()
 }
+
+// Enhanced Sound System
+let soundEnabled = true
+let musicEnabled = true
+let backgroundMusic: music.Melody = null
+
+function playSoundEffect(sound: music.SoundEffect) {
+    if (soundEnabled) {
+        sound.play()
+    }
+}
+
+function playMelody(melody: music.Melody) {
+    if (musicEnabled) {
+        music.play(melody, music.PlaybackMode.InBackground)
+    }
+}
+
+// Create epic background music
+let gameTheme = music.createSong(hex`
+    0078000408020100001c00010a006400f4016400000400000000000000000000056400040000000001000008000000020004001000041001081000020801001800080102040008000800010404001800081004
+`)
+
+let winTheme = music.createSong(hex`
+    0078000408020100001c00010a006400f4016400000400000000000000000000056400040000000002000018000000020004002000042001002000040801001000080102040001000800020404000800081004
+`)
 
 // Player variables
 let player1: Sprite = null
@@ -25,20 +56,107 @@ let player2Lives = 3
 let player3Lives = 3
 let player4Lives = 3
 
+// High Score and Statistics System
+let highScore = 0
+let gamesPlayed = 0
+let totalDonutsCollected = 0
+let totalWins = 0
+let totalLosses = 0
+let currentCombo = 0
+let maxCombo = 0
+let gameStartTime = 0
+let playerStats = {
+    player1Wins: 0,
+    player2Wins: 0,
+    player3Wins: 0,
+    player4Wins: 0
+}
+
+// Load saved data
+function loadGameData() {
+    highScore = settings.readNumber("highScore") || 0
+    gamesPlayed = settings.readNumber("gamesPlayed") || 0
+    totalDonutsCollected = settings.readNumber("totalDonuts") || 0
+    totalWins = settings.readNumber("totalWins") || 0
+    totalLosses = settings.readNumber("totalLosses") || 0
+    maxCombo = settings.readNumber("maxCombo") || 0
+    playerStats.player1Wins = settings.readNumber("p1Wins") || 0
+    playerStats.player2Wins = settings.readNumber("p2Wins") || 0
+    playerStats.player3Wins = settings.readNumber("p3Wins") || 0
+    playerStats.player4Wins = settings.readNumber("p4Wins") || 0
+}
+
+// Save game data
+function saveGameData() {
+    settings.writeNumber("highScore", highScore)
+    settings.writeNumber("gamesPlayed", gamesPlayed)
+    settings.writeNumber("totalDonuts", totalDonutsCollected)
+    settings.writeNumber("totalWins", totalWins)
+    settings.writeNumber("totalLosses", totalLosses)
+    settings.writeNumber("maxCombo", maxCombo)
+    settings.writeNumber("p1Wins", playerStats.player1Wins)
+    settings.writeNumber("p2Wins", playerStats.player2Wins)
+    settings.writeNumber("p3Wins", playerStats.player3Wins)
+    settings.writeNumber("p4Wins", playerStats.player4Wins)
+}
+
+// Power-up effects tracking
+let player1HasShield = false
+let player2HasShield = false
+let player3HasShield = false
+let player4HasShield = false
+let player1SpeedBoost = 0
+let player2SpeedBoost = 0
+let player3SpeedBoost = 0
+let player4SpeedBoost = 0
+let player1DoublePoints = 0
+let player2DoublePoints = 0
+let player3DoublePoints = 0
+let player4DoublePoints = 0
+
 // Collision handlers for all players
 function handleDonutCollision(player: Sprite, donut: Sprite, playerNum: number) {
     donut.destroy()
-    music.bigCrash.play()
+    playSoundEffect(music.powerUp)
+    
+    // Combo system
+    currentCombo += 1
+    if (currentCombo > maxCombo) {
+        maxCombo = currentCombo
+    }
+    
+    // Calculate points (with double points power-up)
+    let points = 1
+    if (playerNum == 1 && player1DoublePoints > 0) points = 2
+    else if (playerNum == 2 && player2DoublePoints > 0) points = 2
+    else if (playerNum == 3 && player3DoublePoints > 0) points = 2
+    else if (playerNum == 4 && player4DoublePoints > 0) points = 2
+    
+    // Combo bonus
+    if (currentCombo >= 5) points += 1
+    if (currentCombo >= 10) points += 2
     
     // Update score based on player
     if (playerNum == 1) {
-        player1Score += 1
+        player1Score += points
+        totalDonutsCollected += 1
     } else if (playerNum == 2) {
-        player2Score += 1
+        player2Score += points
+        totalDonutsCollected += 1
     } else if (playerNum == 3) {
-        player3Score += 1
+        player3Score += points
+        totalDonutsCollected += 1
     } else if (playerNum == 4) {
-        player4Score += 1
+        player4Score += points
+        totalDonutsCollected += 1
+    }
+    
+    // Show combo effects
+    if (currentCombo >= 5) {
+        player.sayText("COMBO x" + currentCombo + "!", 500)
+    }
+    if (points > 1) {
+        player.sayText("+" + points + " points!", 800)
     }
     
     updateScoreDisplay()
@@ -90,28 +208,56 @@ function handleHeartCollision(player: Sprite, heart: Sprite, playerNum: number) 
 
 function handleProjectileCollision(player: Sprite, projectile: Sprite, playerNum: number) {
     projectile.destroy()
-    music.buzzer.play()
+    
+    // Check for shield protection
+    let hasShield = false
+    if (playerNum == 1 && player1HasShield) {
+        hasShield = true
+        player1HasShield = false
+    } else if (playerNum == 2 && player2HasShield) {
+        hasShield = true
+        player2HasShield = false
+    } else if (playerNum == 3 && player3HasShield) {
+        hasShield = true
+        player3HasShield = false
+    } else if (playerNum == 4 && player4HasShield) {
+        hasShield = true
+        player4HasShield = false
+    }
+    
+    if (hasShield) {
+        playSoundEffect(music.magicWand)
+        player.sayText("SHIELD!", 1000)
+        return // No damage taken
+    }
+    
+    playSoundEffect(music.buzzer)
+    currentCombo = 0 // Reset combo on hit
     
     // Remove life from specific player
     if (playerNum == 1) {
         player1Lives -= 1
         if (player1Lives <= 0) {
             player.destroy()
+            player.sayText("DEFEATED!", 1500)
         }
     } else if (playerNum == 2) {
         player2Lives -= 1
         if (player2Lives <= 0) {
             player.destroy()
+            player.sayText("DEFEATED!", 1500)
         }
     } else if (playerNum == 3) {
         player3Lives -= 1
         if (player3Lives <= 0) {
             player.destroy()
+            player.sayText("DEFEATED!", 1500)
         }
     } else if (playerNum == 4) {
         player4Lives -= 1
         if (player4Lives <= 0) {
             player.destroy()
+            player.sayText("DEFEATED!", 1500)
         }
     }
     
@@ -195,8 +341,48 @@ function updateScoreDisplay() {
     }
 }
 
+// Load saved game data first
+loadGameData()
+
+// Background theme system
+let selectedTheme = 0
+function setBackgroundTheme(theme: number) {
+    if (theme == 0) {
+        scene.setBackgroundColor(8) // Original blue
+    } else if (theme == 1) {
+        scene.setBackgroundColor(7) // Orange sunset
+    } else if (theme == 2) {
+        scene.setBackgroundColor(11) // Purple night
+    } else if (theme == 3) {
+        scene.setBackgroundColor(6) // Green forest
+    } else if (theme == 4) {
+        scene.setBackgroundColor(2) // Red danger zone
+    }
+}
+
+// Show game statistics
+function showGameStats() {
+    game.splash("🏆 DONUT SNATCHER STATS 🏆")
+    game.splash("High Score: " + highScore)
+    game.splash("Games Played: " + gamesPlayed)
+    game.splash("Total Donuts: " + totalDonutsCollected)
+    game.splash("Win Rate: " + Math.round((totalWins / Math.max(gamesPlayed, 1)) * 100) + "%")
+    game.splash("Max Combo: " + maxCombo)
+    if (numPlayers > 1) {
+        game.splash("P1 Wins: " + playerStats.player1Wins + " P2 Wins: " + playerStats.player2Wins)
+        if (numPlayers >= 3) game.splash("P3 Wins: " + playerStats.player3Wins)
+        if (numPlayers >= 4) game.splash("P4 Wins: " + playerStats.player4Wins)
+    }
+}
+
 // Game setup
-game.splash("DONUT SNATCHER!")
+game.splash("🍩 DONUT SNATCHER ULTIMATE! 🍩")
+
+// Ask if player wants to see stats
+let showStats = game.askForNumber("View stats first? 1=Yes, 2=No", 2)
+if (showStats == 1) {
+    showGameStats()
+}
 
 // Ask if player wants single or multiplayer
 let gameMode = game.askForNumber("Choose mode: 1=Single Player, 2=Multiplayer", 1)
